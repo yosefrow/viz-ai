@@ -8,6 +8,10 @@ cd $(dirname ${0})
 )
 source .env
 
+echo Create Data dir
+echo =============================
+sudo mkdir -p ${JENKINS_DATA_DIR_EXTERNAL}
+
 echo Fix ownership
 echo =============================
 sudo chown -R $(whoami): ${OPENVPN_DATA_DIR_EXTERNAL}

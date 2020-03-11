@@ -6,8 +6,8 @@ services:
     image: kylemanna/openvpn
     container_name: openvpn
     ports:
-     - "1194:1194/udp"
+     - "${OPENVPN_VPN_PORT_EXTERNAL}:1194/udp"
     restart: always
     volumes:
-     - ./openvpn-data/conf:/etc/openvpn
+     - ${OPENVPN_DATA_DIR_EXTERNAL}:/etc/openvpn
   
