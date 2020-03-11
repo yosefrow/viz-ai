@@ -43,6 +43,10 @@ All information and instructions should be in the README.md file of the GitHub r
 
 I considered whether to put Jenkins and the VPN on the same management server but decided against it. The reasoning is that since those who have access to the Jenkins server via SSH or knowledge of the Jenkins Public IP, should not necessarily have such knowledge or access to the VPN, which allows access to sensitive internal servers.
 
+I considered how management and orchestration would happen for the web server, given the requirement that it be in a private subnet and thought about using a public network interface with a strict security group for SSH and a private network for VPN -> Webserver traffic. However, considering the requirement that the web server be in a private network, to me this meant that no other network routes should be available to reach the web server except through the VPN server.
+
+Therefore, SSH to the web server must occur from either inside the VPN, or from the VPN server itself.
+
 ### VPC : Cloud environment
 
 - Create project VPC 172.40.0.0/16
