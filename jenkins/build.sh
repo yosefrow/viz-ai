@@ -16,7 +16,6 @@ echo "Fix ownership"
 echo "============================="
 sudo chown -R $(whoami): ${JENKINS_DATA_DIR_EXTERNAL}
 
-echo "Start Start server process"
+echo "Start server process"
 echo "============================="
 docker-compose up -d jenkins
-
