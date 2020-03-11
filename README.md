@@ -146,7 +146,19 @@ General Purpose SSD (gp2) Volumes	$0.11 per GB-month of provisioned storage
 
 OpenVPN is being used to restrict access to the web server
 
-Setup docker and docker-compose
+#### VPN Setup Process
+
+`cd openvpn`
+`./init-openvpn`
+
+Generate a client file for Webserver
+
+`./gen-client-cert.sh webserver`
+
+Copy the new cert to webserver
+
+`rsync webserver.ovpn  webserver-ip:/home/ubuntu/webserver.ovpn`
+
 
 
 #### VPN Instance Details
@@ -163,6 +175,8 @@ However, Ideally, we should plan and predict using the official reference
 
 The web server hosts our example corporate website based on code that exists in our repo
 
+#### Web Server Setup Process
+
 #### Web Server Instance Details
 
 Due to the currently unknown nature of usage, we are going with medium sized instance t2.medium
@@ -172,6 +186,11 @@ However, Ideally, we should plan and predict using the official reference
 ### Jenkins server
 
 Jenkins is being used to deploy the code to the web server
+
+#### Jenkins Setup Process
+
+`cd jenkins`
+`./build.sh`
 
 #### Jenkins Instance Details
 
