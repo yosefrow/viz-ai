@@ -1,0 +1,10 @@
+version: '2'
+services:
+  jenkins:
+    image: 'bitnami/jenkins:2'
+    ports:
+      - '${JENKINS_HTTP_PORT_EXTERNAL}:8080'
+      - '${JENKINS_HTTPS_PORT_EXTERNAL}:8443'
+      - '${JENKINS_COM_PORT_EXTERNAL}:50000'
+    volumes:
+      - ${JENKINS_DATA_DIR_EXTERNAL}:/bitnami/jenkins 
