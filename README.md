@@ -50,15 +50,19 @@ Therefore, SSH to the web server must occur from either inside the VPN, or from 
 ### VPC : Cloud environment
 
 - Create project VPC 172.40.0.0/16
-- Create Internet Gateway
-- Attach Internet Gateway to VPC
-- Create Route Tables
-  - private-route
-  - public-route
-    - Add 0.0.0.0/0 -> Internet Gateway
 - Create Subnets
   - Private Subnet: 172.40.1.0/24
   - Public Subnet: 172.40.2.0/24
+- Create Additional Interfaces
+  - Internet Gateway
+    - Attach Internet Gateway to VPC
+  - Nat Gateway in Public Subnet (for Egress-Only Traffic)
+- Create Route Tables
+  - private-route -> Private Subnet
+    - Add 0.0.0.0/0 -> NAT Gateway
+  - public-route -> Public Subnet
+    - Add 0.0.0.0/0 -> Internet Gateway
+
 - Associate private subnet with private route
 - Associate public subnet with public route
 
@@ -107,7 +111,7 @@ Therefore, SSH to the web server must occur from either inside the VPN, or from 
   - Associate elastic IP to OpenVPN, Tag App: OpenVPN
   - Associate elastic IP to Jenkins, Tag App: Jenkins
 
-### Cloud Cost
+### Cloud Pricing
 
 #### EC2 Instances
 
@@ -120,6 +124,40 @@ An Elastic IP address doesn’t incur charges as long as the following condition
 The Elastic IP address is associated with an EC2 instance.
 The instance associated with the Elastic IP address is running.
 The instance has only one Elastic IP address attached to it.
+
+<https://aws.amazon.com/premiumsupport/knowledge-center/elastic-ip-charges/>
+
+#### Disc Usage
+
+General Purpose SSD (gp2) Volumes	$0.11 per GB-month of provisioned storage
+
+`10GB * 3 * 0.11 = $3.30 per month`
+
+<https://aws.amazon.com/ebs/pricing/>
+
+### Provision Nodes
+
+- Install Docker <https://docs.docker.com/install/linux/docker-ce/ubuntu/>
+- Install Docker-Compose <https://docs.docker.com/compose/install/>
+- `mkdir ~/repos && cd ~/repos`
+- `git clone git@github.com:yosefrow/viz-ai.git`
+
+### VPN server
+
+OpenVPN is being used to restrict access to the web server
+
+Setup docker and docker-compose
+
+
+#### VPN Instance Details
+
+Due to the currently unknown nature of usage, we are going with medium sized instance t2.medium
+However, Ideally, we should plan and predict using the official reference 
+<https://openvpn.net/vpn-server-resources/openvpn-access-server-system-requirements/>
+
+#### VPN References
+
+<https://github.com/kylemanna/docker-openvpn/blob/master/docs/docker-compose.md>
 
 ### Web Server
 
@@ -145,19 +183,5 @@ However, Ideally, we should plan and predict using the official reference
 
 <https://raw.githubusercontent.com/bitnami/bitnami-docker-jenkins/master/docker-compose.yml/>
 <https://hub.docker.com/r/bitnami/jenkins/>
-
-### VPN server
-
-OpenVPN is being used to restrict access to the web server
-
-#### VPN Instance Details
-
-Due to the currently unknown nature of usage, we are going with medium sized instance t2.medium
-However, Ideally, we should plan and predict using the official reference 
-<https://openvpn.net/vpn-server-resources/openvpn-access-server-system-requirements/>
-
-#### VPN References
-
-<https://github.com/kylemanna/docker-openvpn/blob/master/docs/docker-compose.md>
 
 ### GitHub CI/CD
