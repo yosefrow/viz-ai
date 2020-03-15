@@ -200,6 +200,13 @@ In our use case we don't want all internet traffic routing through the VPN, so d
 2. Click Save Settings
 3. Click Update Running Server
 
+#### Add Routes
+
+- https://gui-public-host:943/admin/vpn_settings
+- Routing
+  - 172.40.1.0/24
+  - 172.40.2.0/24
+
 #### Create Groups
 
 https://gui-public-host:943/admin/group_permissions
@@ -224,12 +231,6 @@ https://gui-public-host:943/admin/user_permissions
 - webapp-user: "Group: WebApp Admins"
   - More Settings: Password: 1234
 
-#### Add Routes
-
-- https://gui-public-host:943/admin/vpn_settings
-- Routing
-  - 172.40.1.0/24
-  - 172.40.2.0/24
 
 #### Test Connection
 
