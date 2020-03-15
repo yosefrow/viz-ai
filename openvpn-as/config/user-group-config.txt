@@ -1,0 +1,12 @@
+{
+  "__DEFAULT__": {
+    "prop_autogenerate": "true", 
+    "type": "user_default"
+  }, 
+  "admin": {
+    "prop_superuser": "true", 
+    "pvt_google_auth_secret": "LBTB3UEBOHPQ6V3I", 
+    "pvt_google_auth_secret_locked": "false", 
+    "type": "user_compile"
+  }
+}

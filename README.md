@@ -235,7 +235,6 @@ https://gui-public-host:943/admin/user_permissions
 
 - https://gui-public-host:943/?src=connect
 
-
 #### VPN Instance Details
 
 Due to the currently unknown usage, we are going with medium sized instance t2.medium
