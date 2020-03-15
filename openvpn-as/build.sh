@@ -31,10 +31,5 @@ while true; do
     sleep 2
 done
 
-title "Import config"
-./import-config.sh
-
 title "Visit the dashboard"
 echo "https://${SERVER_PUBLIC_URL}:${OPENVPN_AS_GUI_PORT_EXTERNAL}/admin"
-
-
