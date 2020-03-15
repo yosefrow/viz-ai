@@ -23,11 +23,11 @@ sudo chown -R $(whoami): ${OPENVPN_AS_DATA_DIR_EXTERNAL}
 
 title "Restart server process"
 docker-compose down || echo 'Info: could not docker-compose down'
-docker-compose up -d openvpn-as
+docker-compose up -d ${SERVICE_NAME}
 
-title "Waiting for service..."
+title "Waiting for ${SERVICE_NAME} service..."
 while true; do
-    curl -sLk https://localhost:943 -o /dev/null && break
+    curl -sLk https://localhost:${OPENVPN_AS_GUI_PORT_EXTERNAL} -o /dev/null && break
     sleep 2
 done
 

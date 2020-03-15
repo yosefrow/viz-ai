@@ -2,7 +2,7 @@
 version: "2"
 services:
   openvpn-as:
-    image: linuxserver/openvpn-as
+    image: linuxserver/openvpn-as:2.8.2-96c6f9ee-ls59
     container_name: ${SERVICE_NAME}
     hostname: ${SERVICE_NAME}
     cap_add:
