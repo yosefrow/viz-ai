@@ -204,8 +204,7 @@ In our use case we don't want all internet traffic routing through the VPN, so d
 
 - https://gui-public-host:943/admin/vpn_settings
 - Routing
-  - 172.40.1.0/24
-  - 172.40.2.0/24
+  - List should be empty to avoid global routing
 
 #### Create Groups
 
@@ -214,13 +213,17 @@ https://gui-public-host:943/admin/group_permissions
 - WebApp Users:
   - More Settings:
     - Use Access Control: Yes 
-    - Allow Access To networks and services:
+    - Allow Access To networks and services: 
+      - <private-server-ip>/32:tcp/80
     - Allow Access To groups: None
-- WebApp Admins:
+- Global Admins:
+  - Admin: v
   - More Settings:
     - Use Access Control: Yes 
-    - Allow Access To networks and services:
-    - Allow Access To groups: WebApp users
+    - Allow Access To networks and services: 
+      - <private-server-ip>/32:tcp/80
+      - <private-server-ip>/32:tcp/22
+    - Allow Access To groups: None
 
 #### Create Users
 
@@ -228,7 +231,7 @@ https://gui-public-host:943/admin/user_permissions
 
 - webapp-user: "Group: WebApp Users"
   - More Settings: Password: 1234
-- webapp-user: "Group: WebApp Admins"
+- global-admin: "Group: Global Admins"
   - More Settings: Password: 1234
 
 
