@@ -5,6 +5,8 @@
   }, 
   "admin": {
     "prop_superuser": "true", 
+    "pvt_google_auth_secret": "XCMUC6TRNJINYJ5F", 
+    "pvt_google_auth_secret_locked": "false", 
     "type": "user_compile"
   }
 }
