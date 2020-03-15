@@ -200,11 +200,10 @@ In our use case we don't want all internet traffic routing through the VPN, so d
 2. Click Save Settings
 3. Click Update Running Server
 
-#### Add Routes
+#### Modify Routing
 
 - https://gui-public-host:943/admin/vpn_settings
-- Routing
-  - List should be empty to avoid global routing
+- Should VPN clients have access to private subnets (non-public networks on the server side)?No (avoid global routing)
 
 #### Create Groups
 
