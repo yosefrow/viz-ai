@@ -229,9 +229,9 @@ https://gui-public-host:943/admin/group_permissions
 https://gui-public-host:943/admin/user_permissions
 
 - webapp-user: "Group: WebApp Users"
-  - More Settings: Password: 1234
+  - More Settings: Password: abc123!@#
 - global-admin: "Group: Global Admins"
-  - More Settings: Password: 1234
+  - More Settings: Password: abc123!@#
 
 
 #### Test Connection
