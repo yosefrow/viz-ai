@@ -3,8 +3,8 @@ version: "2"
 services:
   openvpn-as:
     image: linuxserver/openvpn-as
-    container_name: openvpn-as
-    hostname: openvpn-as
+    container_name: ${SERVICE_NAME}
+    hostname: ${SERVICE_NAME}
     cap_add:
       - NET_ADMIN
     environment:
