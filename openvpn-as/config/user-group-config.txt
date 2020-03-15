@@ -1,0 +1,10 @@
+{
+  "__DEFAULT__": {
+    "prop_autogenerate": "true", 
+    "type": "user_default"
+  }, 
+  "admin": {
+    "prop_superuser": "true", 
+    "type": "user_compile"
+  }
+}
