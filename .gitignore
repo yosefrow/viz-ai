@@ -1,2 +1,3 @@
-*.swp[g-p]
+*.sw[g-p]
 .env
+*/certs/*
