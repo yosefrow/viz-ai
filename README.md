@@ -5,7 +5,7 @@
 It is important that you treat this as a project you'd be willing to run in a production environment, so we expect a high level of "completeness".
 But like at day-to-day work, there is no "one right solution", and any of the numerous possible architectures is acceptable.
 
-If you get stuck, or find that it takes too much of your time, you can wrap it up by documenting what you’ve accomplished vs. what was left,
+If you get stuck, or find that it takes too much of your time, you can wrap it up by documenting what you've accomplished vs. what was left,
 and note how you would tackle everything not yet implemented\working properly.
 
 *Please note that the account is limited to the Ireland region only.*
@@ -72,8 +72,9 @@ Therefore, SSH to the web server must occur from either inside the VPN, or from 
 - Create Security Groups
   - OpenVPN
     - 0.0.0.0/0 -> 22 (SSH)
-    - 0.0.0.0/0 -> 443 (VPN)
-    - 0.0.0.0/0 -> 943 (Web Interface)
+    - 0.0.0.0/0 -> 943 (VPN Web GUI)
+    - 0.0.0.0/0 -> 9443 (VPN TCP)
+    - 0.0.0.0/0 -> 1194 (VPN UDP)
   - WebServer
     - 172.40.0.0/16 -> 22 (this rule won't do anything because we're in a private subnet. But we want to avoid warning)
     - 172.40.0.0/16 -> 80 (web access through the VPN)
@@ -148,28 +149,102 @@ OpenVPN is being used to restrict access to the web server
 
 #### VPN Setup Process
 
-`cd openvpn`
-`./init-openvpn`
+`cd openvpn-as`
+`./build.sh`
 
-Generate a client file for Webserver
 
-`./gen-client-cert.sh webserver`
+#### View logs and wait till started
 
-Copy the new cert to webserver
+`docker-compose logs -f openvpn-as`
 
-`rsync webserver.ovpn  webserver-ip:/home/ubuntu/webserver.ovpn`
 
+```
+openvpn-as    | [services.d] starting services
+openvpn-as    | [services.d] done.
+
+```
+
+#### Visit the dashboard
+
+e.g. https://gui-public-host:943/admin
+
+#### Default credentials
+
+user: admin
+
+pass: password
+
+#### Persistent Data
+
+Persistent data is stored in the location defined in the variable '${OPENVPN_AS_DATA_DIR_EXTERNAL}' in '.env'
+
+SQLite Databases are stored in `${OPENVPN_AS_DATA_DIR_EXTERNAL}/etc/db`
+
+Ideally we should use mysql instead of sqlite3 dbs
+
+See: <https://openvpn.net/vpn-server-resources/setting-up-an-openvpn-access-server-cluster/>
+
+#### Change the public ip
+
+1. https://gui-public-host:943/admin/network_settings
+  - Hostname or IP Address: vpn-public-ip-or-host
+2. Click Save Settings
+3. Click Update Running Server
+
+#### Disable internet hijacking
+
+In our use case we don't want all internet traffic routing through the VPN, so disable it.
+
+1. https://gui-public-host:943/admin/vpn_settings
+  - Should client Internet traffic be routed through the VPN?: No
+2. Click Save Settings
+3. Click Update Running Server
+
+#### Create Groups
+
+https://gui-public-host:943/admin/group_permissions
+
+- WebApp Users:
+  - More Settings:
+    - Use Access Control: Yes 
+    - Allow Access To networks and services:
+    - Allow Access To groups: None
+- WebApp Admins:
+  - More Settings:
+    - Use Access Control: Yes 
+    - Allow Access To networks and services:
+    - Allow Access To groups: WebApp users
+
+#### Create Users
+
+https://gui-public-host:943/admin/user_permissions
+
+- webapp-user: "Group: WebApp Users"
+  - More Settings: Password: 1234
+- webapp-user: "Group: WebApp Admins"
+  - More Settings: Password: 1234
+
+#### Add Routes
+
+- https://gui-public-host:943/admin/vpn_settings
+- Routing
+  - 172.40.1.0/24
+  - 172.40.2.0/24
+
+#### Test Connection
+
+- https://gui-public-host:943/?src=connect
 
 
 #### VPN Instance Details
 
-Due to the currently unknown nature of usage, we are going with medium sized instance t2.medium
+Due to the currently unknown usage, we are going with medium sized instance t2.medium
 However, Ideally, we should plan and predict using the official reference 
 <https://openvpn.net/vpn-server-resources/openvpn-access-server-system-requirements/>
 
 #### VPN References
 
-<https://github.com/kylemanna/docker-openvpn/blob/master/docs/docker-compose.md>
+<https://github.com/linuxserver/docker-openvpn-as>
 
 ### Web Server
 
@@ -179,9 +254,9 @@ The web server hosts our example corporate website based on code that exists in 
 
 #### Web Server Instance Details
 
-Due to the currently unknown nature of usage, we are going with medium sized instance t2.medium
+Due to the currently unknown usage, we are going with medium sized instance t2.medium
 However, Ideally, we should plan and predict using the official reference
-<https://openvpn.net/vpn-server-resources/openvpn-access-server-system-requirements/>
+<https://www.nginx.com/resources/datasheets/nginx-plus-sizing-guide/>
 
 ### Jenkins server
 
@@ -194,9 +269,9 @@ Jenkins is being used to deploy the code to the web server
 
 #### Jenkins Instance Details
 
-Due to the currently unknown nature of usage, we are going with medium sized instance t2.medium
+Due to the currently unknown usage, we are going with medium sized instance t2.medium
 However, Ideally, we should plan and predict using the official reference
-<https://openvpn.net/vpn-server-resources/openvpn-access-server-system-requirements/>
+<https://jenkins.io/doc/book/hardware-recommendations/>
 
 #### Jenkins References
 

@@ -4,6 +4,7 @@ services:
   openvpn-as:
     image: linuxserver/openvpn-as
     container_name: openvpn-as
+    hostname: openvpn-as
     cap_add:
       - NET_ADMIN
     environment:
@@ -18,4 +19,4 @@ services:
       - ${OPENVPN_AS_TCP_PORT_EXTERNAL}:9443
       - ${OPENVPN_AS_UDP_PORT_EXTERNAL}:1194/udp
     restart: unless-stopped
-  
+    network_mode: bridge
