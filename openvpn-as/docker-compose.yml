@@ -12,7 +12,7 @@ services:
       - TZ=Asia/Jerusalemn
       - INTERFACE=eth0 #optional
     volumes:
-     - ${OPENVPN_AS_DATA_DIR_EXTERNAL}:/config
+      - ${OPENVPN_AS_DATA_DIR_EXTERNAL}:/config
     ports:
       - ${OPENVPN_AS_GUI_PORT_EXTERNAL}:943
       - ${OPENVPN_AS_TCP_PORT_EXTERNAL}:9443
