@@ -240,8 +240,8 @@ https://gui-public-host:943/admin/user_permissions
 
 #### VPN Instance Details
 
-Due to the currently unknown usage, we are going with medium sized instance t2.medium
-However, Ideally, we should plan and predict using the official reference 
+To start with, we are going with an instance of size t2.medium.
+Ideally though, we should plan and predict using the official reference
 <https://openvpn.net/vpn-server-resources/openvpn-access-server-system-requirements/>
 
 #### VPN References
@@ -250,14 +250,15 @@ However, Ideally, we should plan and predict using the official reference
 
 ### Web Server
 
-The web server hosts our example corporate website based on code that exists in our repo
+The web server hosts our example corporate website based on code that exists in our repo. 
+Currently It uses nginx to server a basic website
 
 #### Web Server Setup Process
 
 #### Web Server Instance Details
 
-Due to the currently unknown usage, we are going with medium sized instance t2.medium
-However, Ideally, we should plan and predict using the official reference
+To start with, we are going with an instance of size t2.micro.
+Ideally though, we should plan and predict using the official reference.
 <https://www.nginx.com/resources/datasheets/nginx-plus-sizing-guide/>
 
 ### Jenkins server
@@ -271,8 +272,8 @@ Jenkins is being used to deploy the code to the web server
 
 #### Jenkins Instance Details
 
-Due to the currently unknown usage, we are going with medium sized instance t2.medium
-However, Ideally, we should plan and predict using the official reference
+To start with, we are going with an instance of size t2.medium.
+Ideally though, we should plan and predict using the official reference
 <https://jenkins.io/doc/book/hardware-recommendations/>
 
 #### Jenkins References
