@@ -1,6 +1,5 @@
 {
   "Default": {
-    "admin_ui.https.ip_address": "eth0", 
     "aui.eula_version": "2", 
     "auth.ldap.0.name": "My LDAP servers", 
     "auth.ldap.0.ssl_verify": "internal", 
@@ -11,7 +10,6 @@
     "auth.radius.0.acct_enable": "false", 
     "auth.radius.0.name": "My Radius servers", 
     "cs.cws_proto_v2": "true", 
-    "cs.https.ip_address": "eth0", 
     "cs.prof_sign_web": "true", 
     "cs.ssl_method": "SSLv3", 
     "cs.tls_version_min": "1.1", 
@@ -19,11 +17,11 @@
     "sa.initial_run_groups.1": "openvpn_group", 
     "vpn.client.basic": "false", 
     "vpn.client.cipher": "AES-256-CBC", 
-    "vpn.daemon.0.listen.ip_address": "eth0", 
-    "vpn.daemon.0.server.ip_address": "eth0", 
     "vpn.general.osi_layer": "3", 
     "vpn.server.cipher": "AES-256-CBC", 
     "vpn.server.group_pool.0": "172.27.240.0/20", 
+    "vpn.server.group_pool.1": "172.40.1.0/24", 
+    "vpn.server.group_pool.2": "172.40.2.0/24", 
     "vpn.server.port_share.enable": "true", 
     "vpn.server.port_share.ip_address": "1.2.3.4", 
     "vpn.server.port_share.port": "1234", 
