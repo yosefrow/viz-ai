@@ -11,5 +11,8 @@ services:
       - ${JENKINS_HTTP_PORT_EXTERNAL}:8080
       - ${JENKINS_HTTPS_PORT_EXTERNAL}:8443
       - ${JENKINS_COM_PORT_EXTERNAL}:50000
+    environment:
+      - JENKINS_USERNAME
+      - JENKINS_PASSWORD
     restart: unless-stopped
     network_mode: bridge
