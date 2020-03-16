@@ -13,27 +13,27 @@ and note how you would tackle everything not yet implemented\working properly.
 ## Project description
 
 Implement an internal corporate web server which
-    - can be as simple as a static "Hello World" webpage
-    - is located in a private subnet
-    - is accessible only through a VPN (to a few corporate offices)
+- can be as simple as a static "Hello World" webpage
+- is located in a private subnet
+- is accessible only through a VPN (to a few corporate offices)
 
 Host the code of the webpage in a GitHub repository and
-    - for every commit to the "master" branch, automatically deploy the code to the web server
-    - deploy the code to the web server using Jenkins
+- for every commit to the "master" branch, automatically deploy the code to the web server
+- deploy the code to the web server using Jenkins
 
 Implement a way to control who can
-    - access the web server instance
-    - add or revoke access to the web server instance
+- access the web server instance
+- add or revoke access to the web server instance
 
 Set access control so that
-    - *you and I* can access the web server instance
-    - *only you* can add or revoke access to the web server instance
+- *you and I* can access the web server instance
+- *only you* can add or revoke access to the web server instance
 
 The required deliverables are:
-    - GitHub repository address
-    - Jenkins sign-in address + credentials
-    - Webpage address
-    - Instructions for installing the VPN client and connecting + credentials
+- GitHub repository address
+- Jenkins sign-in address + credentials
+- Webpage address
+- Instructions for installing the VPN client and connecting + credentials
 
 All information and instructions should be in the README.md file of the GitHub repository
 
