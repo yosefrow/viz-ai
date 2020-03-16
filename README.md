@@ -63,7 +63,14 @@ You must be connected to the VPN! See instructions in next step
 - Login
   - User: webapp-user
   - Password: abc123!@#
-
+- Download OpenVPN Connect for your device
+- Click download link from "Available Connection Profiles:"
+- Install OpenVPN Connect
+- Run OpenVPN Connect
+- From OpenVPN Connect
+  - Menu > Import Profile > File
+  - Drag and drop Connection profile file (`*.ovpn`) That you downloaded earlier
+  - Enter Password and Connect
 
 ### Instructions for VPN Admin
 
