@@ -24,6 +24,7 @@ pipeline {
             }
             environment { 
                 PHASE = 'prod'
+                SSH_HOST = '128.199.39.187' 
             }
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} for phase ${env.PHASE}"
@@ -38,12 +39,11 @@ pipeline {
                     sh /* CORRECT */ '''
                       set +x
                       echo $SSH_KEY_PATH
-                      ssh -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no $SSH_USER@128.199.39.187 '
+                      ssh -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST'
                           (mkdir -p ~/repos && git clone https://github.com/yosefrow/viz-ai.git)
                           cd viz-ai;
                           git pull origin master;
                           nginx/build.sh;
-                          ls; 
                       '
                     '''
                 }
