@@ -39,8 +39,10 @@ pipeline {
                     sh /* DEPLOY CODE TO WEBSERVER */ '''
                       echo $SSH_KEY_PATH
                       ssh -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} '
-                          [ -f ~/repos/viz-ai ] || (mkdir -p ~/repos && git clone https://github.com/yosefrow/viz-ai.git)
-                          cd ~/repos/viz-ai;
+                          [ -f ~/repos ] || mkdir ~/repos;
+                          cd repos;
+                          [ -f ./viz-ai ] || git clone https://github.com/yosefrow/viz-ai.git;
+                          cd viz-ai;
                           git pull origin master;
                           nginx/build.sh;
                       '
