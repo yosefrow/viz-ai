@@ -4,9 +4,9 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                bash 'hostname' 
-                bash 'stat nginx' 
-                bash 'cd nginx && cp .env.example .env && docker-compose config'
+                sh 'hostname' 
+                sh 'stat nginx' 
+                sh 'cd nginx && cp .env.example .env && docker-compose config'
             }
         }
         stage('Deploy') {
@@ -16,7 +16,7 @@ pipeline {
               }
             }
             steps {
-                bash 'echo here we go!'
+                sh 'echo here we go!'
             }
         }
     }
