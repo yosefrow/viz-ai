@@ -359,15 +359,18 @@ Jenkins is being used to deploy the code to the web server
 - ID: jenkins-viz-ai-ssh-host
 - Description: Jenkins Viz.ai SSH Host
 
-#### Create GitHub WebHook
-
-1. `https://github.com/<github-user>/<github-repo>/settings/hooks`
-2. Add Webhook
-3. e.g. `http://<jenkins-server-url>:8080/github-webhook/`
-
 #### Jenkins References
 
 <https://raw.githubusercontent.com/bitnami/bitnami-docker-jenkins/master/docker-compose.yml/>
 <https://hub.docker.com/r/bitnami/jenkins/>
 
 ### GitHub CI/CD
+
+The github repo is configured to automatically trigger the jenkins webhook when we push code.
+
+#### Create GitHub WebHook
+
+1. `https://github.com/<github-user>/<github-repo>/settings/hooks`
+2. Add Webhook
+3. e.g. `http://<jenkins-server-url>:8080/github-webhook/`
+
