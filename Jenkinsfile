@@ -24,7 +24,7 @@ pipeline {
             }
             environment { 
                 PHASE = 'prod'
-                SSH_HOST = '128.199.39.187' 
+                SSH_HOST = credentials('jenkins-viz-ai-ssh-host')
             }
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} for phase ${env.PHASE}"
