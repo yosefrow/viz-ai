@@ -120,7 +120,7 @@ Therefore, SSH to the web server must occur from either inside the VPN, or from 
 
 #### Elastic IPS
 
-An Elastic IP address doesn’t incur charges as long as the following conditions are true:
+An Elastic IP address doesn't incur charges as long as the following conditions are true:
 
 The Elastic IP address is associated with an EC2 instance.
 The instance associated with the Elastic IP address is running.
@@ -270,23 +270,40 @@ Jenkins is being used to deploy the code to the web server
 `cd jenkins`
 `./build.sh`
 
+#### Provision Jenkins User
+
+`sudo adduser jenkins`
+`sudo adduser jenkins docker`
+`sudo -sHu jenkins`
+`ssh-keygen`
+`cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`
+
 #### Create Jenkins Pipeline job
 
 - General
-  - GitHub Project:  https://github.com/<github-user>/<github-repo>/settings/hooks
+  - GitHub Project:  `https://github.com/<github-user>/<github-repo>/settings/hooks`
 - Build Triggers
   - GitHub hook trigger for GITScm polling: v
 - Pipeline
   - Pipeline script from SCM
     - SCM: Git
-    - Repository URL: https://github.com/<github-user>/<github-repo>/settings/hooks
+    - Repository URL: `https://github.com/<github-user>/<github-repo>/settings/hooks`
   - Script Path: Jenkinsfile
+
+#### Create Jenkins Credentials
+
+- `http://<jenkins-server-url>:8080/credentials/store/system/domain/_/newCredentials`
+- Kind: SSH Username with private key
+- ID: jenkins-viz-ai
+- Description: Jenkins Viz.ai SSH
+- Username: jenkins
+- Private Key > Enter Directly > `jenkins$ cat ~jenkins/.ssh/id_rsa`
 
 #### Create GitHub WebHook
 
-1. https://github.com/<github-user>/<github-repo>/settings/hooks
+1. `https://github.com/<github-user>/<github-repo>/settings/hooks`
 2. Add Webhook
-3. e.g. http://<jenkins-server-url>:8080/github-webhook/
+3. e.g. `http://<jenkins-server-url>:8080/github-webhook/`
 
 #### Jenkins Instance Details
 
