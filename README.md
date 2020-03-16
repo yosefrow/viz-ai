@@ -1,4 +1,4 @@
-# Viz.Ai Demo (Secure web server) 
+# Viz.Ai Demo (Secure web server)
 
 ## General Overview
 
@@ -166,7 +166,7 @@ openvpn-as    | [services.d] done.
 
 #### Visit the dashboard
 
-e.g. https://gui-public-host:943/admin
+e.g. https://<gui-public-host>:943/admin
 
 #### Default credentials
 
@@ -186,7 +186,7 @@ See: <https://openvpn.net/vpn-server-resources/setting-up-an-openvpn-access-serv
 
 #### Change the public ip
 
-1. https://gui-public-host:943/admin/network_settings
+1. https://<gui-public-host>:943/admin/network_settings
   - Hostname or IP Address: vpn-public-ip-or-host
 2. Click Save Settings
 3. Click Update Running Server
@@ -195,19 +195,19 @@ See: <https://openvpn.net/vpn-server-resources/setting-up-an-openvpn-access-serv
 
 In our use case we don't want all internet traffic routing through the VPN, so disable it.
 
-1. https://gui-public-host:943/admin/vpn_settings
+1. https://<gui-public-host>:943/admin/vpn_settings
   - Should client Internet traffic be routed through the VPN?: No
 2. Click Save Settings
 3. Click Update Running Server
 
 #### Modify Routing
 
-- https://gui-public-host:943/admin/vpn_settings
+- https://<gui-public-host>:943/admin/vpn_settings
 - Should VPN clients have access to private subnets (non-public networks on the server side)?No (avoid global routing)
 
 #### Create Groups
 
-https://gui-public-host:943/admin/group_permissions
+https://<gui-public-host>:943/admin/group_permissions
 
 - WebApp Users:
   - More Settings:
@@ -226,7 +226,7 @@ https://gui-public-host:943/admin/group_permissions
 
 #### Create Users
 
-https://gui-public-host:943/admin/user_permissions
+https://<gui-public-host>:943/admin/user_permissions
 
 - webapp-user: "Group: WebApp Users"
   - More Settings: Password: abc123!@#
@@ -236,7 +236,7 @@ https://gui-public-host:943/admin/user_permissions
 
 #### Test Connection
 
-- https://gui-public-host:943/?src=connect
+- https://<gui-public-host>:943/?src=connect
 
 #### VPN Instance Details
 
@@ -269,6 +269,24 @@ Jenkins is being used to deploy the code to the web server
 
 `cd jenkins`
 `./build.sh`
+
+#### Create Jenkins Pipeline job
+
+- General
+  - GitHub Project:  https://github.com/<github-user>/<github-repo>/settings/hooks
+- Build Triggers
+  - GitHub hook trigger for GITScm polling: v
+- Pipeline
+  - Pipeline script from SCM
+    - SCM: Git
+    - Repository URL: https://github.com/<github-user>/<github-repo>/settings/hooks
+  - Script Path: Jenkinsfile
+
+#### Create GitHub WebHook
+
+1. https://github.com/<github-user>/<github-repo>/settings/hooks
+2. Add Webhook
+3. e.g. http://<jenkins-server-url>:8080/github-webhook/
 
 #### Jenkins Instance Details
 
