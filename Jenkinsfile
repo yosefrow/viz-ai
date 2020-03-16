@@ -38,7 +38,7 @@ pipeline {
                     sh /* CORRECT */ '''
                       set +x
                       echo $SSH_KEY_PATH
-                      ssh -i $SSH_KEY_PATH $SSH_USER@128.199.39.187 'echo $HOME'
+                      ssh -i "$SSH_KEY_PATH" $SSH_USER@128.199.39.187 'echo $HOME'
                     '''
                 }
             }
