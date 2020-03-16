@@ -37,6 +37,41 @@ The required deliverables are:
 
 All information and instructions should be in the README.md file of the GitHub repository
 
+## Deliverables
+
+### GitHub repository Address
+
+Repo: <https://github.com/yosefrow/viz-ai>
+
+### Jenkins sign-in address + credentials
+
+- Address: <http://108.128.231.83:8080>
+- User: user
+- Pass: abc123!@#
+
+- Job: <http://108.128.231.83:8080/job/Viz.ai%20-%20Deploy%20Web%20App/6/console>
+
+### Webpage address (internal)
+
+Address: <http://172.40.1.116/>
+
+You must be connected to the VPN! See instructions in next step
+
+### Instructions for installing the VPN client and connecting + credentials
+
+- Visit Connect interface: <https://52.213.137.110:943/?src=connect>
+- Login
+  - User: webapp-user
+  - Password: abc123!@#
+
+
+### Instructions for VPN Admin
+
+- Visit Admin Interface: <https://52.213.137.110:943/admin>
+- Login
+  - User: global-admin
+  - Password: abc123!@#
+
 ## Implementation Details
 
 ### Considerations
@@ -77,9 +112,11 @@ Therefore, SSH to the web server must occur from either inside the VPN, or from 
     - 0.0.0.0/0 -> 1194 (VPN UDP)
   - WebServer
     - 172.40.0.0/16 -> 22 (this rule won't do anything because we're in a private subnet. But we want to avoid warning)
-    - 172.40.0.0/16 -> 80 (web access through the VPN)
+    - OpenVPN Server ec2 -> 80 (web access through the VPN)
   - Jenkins
-    - 0.0.0.0/0 -> 8080 ()
+    - 0.0.0.0/0 -> 22 (SSH)
+    - 0.0.0.0/0 -> 8080 (Jenkins HTTP)
+    - 0.0.0.0/0 -> 8443 (Jenkins HTTPS)
 - Create EC2 instances
     1. OpenVPN
        1. Ubuntu 18.04
@@ -157,7 +194,6 @@ OpenVPN is being used to restrict access to the web server
 
 `docker-compose logs -f openvpn-as`
 
-
 ```
 openvpn-as    | [services.d] starting services
 openvpn-as    | [services.d] done.
@@ -170,9 +206,8 @@ e.g. https://<gui-public-host>:943/admin
 
 #### Default credentials
 
-user: admin
-
-pass: password
+- user: admin
+- pass: password
 
 #### Persistent Data
 
@@ -255,6 +290,18 @@ Currently It uses nginx to server a basic website
 
 #### Web Server Setup Process
 
+`cd nginx`
+`./build.sh`
+
+#### Provision Jenkins User
+
+`sudo adduser jenkins`
+`sudo adduser jenkins docker`
+`sudo -sHu jenkins`
+`ssh-keygen`
+`cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`
+
+
 #### Web Server Instance Details
 
 To start with, we are going with an instance of size t2.micro.
@@ -269,14 +316,6 @@ Jenkins is being used to deploy the code to the web server
 
 `cd jenkins`
 `./build.sh`
-
-#### Provision Jenkins User
-
-`sudo adduser jenkins`
-`sudo adduser jenkins docker`
-`sudo -sHu jenkins`
-`ssh-keygen`
-`cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`
 
 #### Create Jenkins Pipeline job
 
@@ -297,7 +336,7 @@ Jenkins is being used to deploy the code to the web server
 - ID: jenkins-viz-ai
 - Description: Jenkins Viz.ai SSH
 - Username: jenkins
-- Private Key > Enter Directly > `jenkins$ cat ~jenkins/.ssh/id_rsa`
+- Private Key > Enter Directly > `ssh webserver 'cat ~jenkins/.ssh/id_rsa'`
 
 #### Create Jenkins SSH Host Credentials
 
