@@ -49,7 +49,7 @@ Repo: <https://github.com/yosefrow/viz-ai>
 - User: user
 - Pass: abc123!@#
 
-- Job: <http://108.128.231.83:8080/job/Viz.ai%20-%20Deploy%20Web%20App/6/console>
+- Job: <http://108.128.231.83:8080/job/viz-ai_deploy-webapp>
 
 ### Webpage address (internal)
 
