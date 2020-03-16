@@ -2,11 +2,10 @@
 version: '2'
 services:
   nginx:
-    image: nginx:1.17
+    image: viz-ai/nginx
+    build: .
     container_name: ${SERVICE_NAME}
     hostname: ${SERVICE_NAME}
-    volumes:
-      - ${NGINX_DATA_DIR_EXTERNAL}:/usr/share/nginx/html
     ports:
       - ${NGINX_HTTP_PORT_EXTERNAL}:80
     restart: unless-stopped
