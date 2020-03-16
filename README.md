@@ -83,17 +83,17 @@ You must be connected to the VPN! See instructions in next step
 
 ### Considerations
 
-Should Jenkins and the VPN be on the same management server?
+*Should Jenkins and the VPN be on the same management server?*
 
 I decided against it, since those who have access to the Jenkins server via SSH or knowledge of the Jenkins Public IP, should not necessarily have such knowledge or access to the VPN, which allows access to sensitive internal servers.
 
-How should management and orchestration be handled for the webserver?
+*How should management and orchestration be handled for the webserver?*
 
 Considering the requirement that the web server be in a private network, to me this meant that no other routes should be available to reach the web server except through the VPN server or within the aws VPC. This means the VPN must be setup first, so that we can orchestratrate the webserver without using the VPN server as a bastion.
 
-How should instance orchestration happen in general?
+*How should instance and cloud orchestration happen in general?*
 
-In general we should orchestrate our servers with ansible. However, due to time limitations, I have not yet implemented this.
+In general we should orchestrate our servers with ansible and our cloud resources with terraform. However, due to time limitations, I have not yet implemented this.
 
 ### VPC : Cloud environment
 
