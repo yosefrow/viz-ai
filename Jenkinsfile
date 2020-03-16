@@ -28,6 +28,14 @@ pipeline {
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} for phase ${env.PHASE}"
                 sh 'echo here we go!'
+                withCredentials([sshUserPrivateKey(
+                   credentialsId: 'jenkins-viz-ai', 
+                   keyFileVariable: 'SSH_KEY_PATH', 
+                   passphraseVariable: '', 
+                   usernameVariable: 'SSH_USER' 
+                )]){
+                    sh 'hostname'
+                }
             }
         }
     }
