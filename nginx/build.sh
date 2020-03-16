@@ -16,8 +16,10 @@ function title() {
 }
 
 title "Restart server process"
+
+docker-compose build ${SERVICE_NAME}
 docker-compose down || echo 'Info: could not docker-compose down'
-docker-compose up --build -d ${SERVICE_NAME}
+docker-compose up -d ${SERVICE_NAME}
 
 title "Waiting for ${SERVICE_NAME} service..."
 while true; do
