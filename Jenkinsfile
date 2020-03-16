@@ -38,7 +38,7 @@ pipeline {
                     sh 'hostname'
                     sh /* CORRECT */ '''
                       echo $SSH_KEY_PATH
-                      ssh -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST'
+                      ssh -i "$SSH_KEY_PATH" -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} '
                           (mkdir -p ~/repos && git clone https://github.com/yosefrow/viz-ai.git)
                           cd viz-ai;
                           git pull origin master;
