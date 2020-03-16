@@ -12,8 +12,9 @@ pipeline {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} for phase ${env.PHASE}"
                 sh 'hostname' 
                 sh 'stat nginx' 
+                sh 'ls'
                 dir('nginx') {
-                    sh 'set -a && . .env.example && cat docker-compose.yml | envsubst && set +a'
+                    sh 'set -a && . ./.env.example && cat docker-compose.yml | envsubst && set +a'
                 }
             }
         }
