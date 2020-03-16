@@ -35,6 +35,10 @@ pipeline {
                    usernameVariable: 'SSH_USER' 
                 )]){
                     sh 'hostname'
+                    sh /* CORRECT */ '''
+                      set +x
+                      echo $SSH_KEY_PATH
+                    '''
                 }
             }
         }
