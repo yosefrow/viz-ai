@@ -290,7 +290,7 @@ Jenkins is being used to deploy the code to the web server
     - Repository URL: `https://github.com/<github-user>/<github-repo>/settings/hooks`
   - Script Path: Jenkinsfile
 
-#### Create Jenkins Credentials
+#### Create Jenkins SSH Credentials
 
 - `http://<jenkins-server-url>:8080/credentials/store/system/domain/_/newCredentials`
 - Kind: SSH Username with private key
@@ -298,6 +298,14 @@ Jenkins is being used to deploy the code to the web server
 - Description: Jenkins Viz.ai SSH
 - Username: jenkins
 - Private Key > Enter Directly > `jenkins$ cat ~jenkins/.ssh/id_rsa`
+
+#### Create Jenkins SSH Host Credentials
+
+- `http://<jenkins-server-url>:8080/credentials/store/system/domain/_/newCredentials`
+- Kind: Secret Text
+- Secret: <jenkins-host>
+- ID: jenkins-viz-ai-ssh-host
+- Description: Jenkins Viz.ai SSH Host
 
 #### Create GitHub WebHook
 
