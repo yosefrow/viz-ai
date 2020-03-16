@@ -127,8 +127,7 @@ Therefore, SSH to the web server must occur from either inside the VPN, or from 
 - Create EC2 instances
     1. OpenVPN
        1. Ubuntu 18.04
-       2. T2 medium
-          1. { "vCpu": "2", "RAM-GiB": "4", "On-Demand-Price-Hr: $0.0464" }
+       2. T2 micro
        3. project VPC
        4. protect against accidental termination
        5. public-subnet
@@ -136,8 +135,7 @@ Therefore, SSH to the web server must occur from either inside the VPN, or from 
        7. ssh key/pair
     2. Jenkins
        1. Ubuntu 18.04
-       2. T2 medium
-          1. { "vCpu": "2", "RAM-GiB": "4", "On-Demand-Price-Hr: $0.0464" }
+       2. T2 small
        3. project VPC
        4. protect against accidental termination
        5. public-subnet
@@ -145,8 +143,7 @@ Therefore, SSH to the web server must occur from either inside the VPN, or from 
        7. ssh key/pair
     3. WebServer
        1. Ubuntu 18.04
-       2. T2 medium
-          1. { "vCpu": "2", "RAM-GiB": "4", "On-Demand-Price-Hr: $0.0464" }
+       2. T2 micro
        3. project VPC
        4. protect against accidental termination
        5. private-subnet
@@ -156,11 +153,27 @@ Therefore, SSH to the web server must occur from either inside the VPN, or from 
   - Associate elastic IP to OpenVPN, Tag App: OpenVPN
   - Associate elastic IP to Jenkins, Tag App: Jenkins
 
+#### Instance Types
+
+Ideally we should plan and predict using the official reference
+
+- OpenVPN: <https://openvpn.net/vpn-server-resources/openvpn-access-server-system-requirements/>
+- Nginx: <https://www.nginx.com/resources/datasheets/nginx-plus-sizing-guide/>
+- Jenkins: <https://jenkins.io/doc/book/hardware-recommendations/>
+
+Type Reference:
+
+- T2 Micro: { "vCpu": "1", "RAM-GiB": "1" }
+- T2 Small: { "vCpu": "1", "RAM-GiB": "2" }
+
 ### Cloud Pricing
 
 #### EC2 Instances
 
-3 * 1.1136 USD Per day = 3.3408 USD per day
+t2.micro = 2 * $0.0126 Per day
+t2.small = 1 * $0.0250 Per day
+
+<https://aws.amazon.com/ec2/pricing/on-demand/>
 
 #### Elastic IPS
 
@@ -280,12 +293,6 @@ https://<gui-public-host>:943/admin/user_permissions
 
 - https://<gui-public-host>:943/?src=connect
 
-#### VPN Instance Details
-
-To start with, we are going with an instance of size t2.medium.
-Ideally though, we should plan and predict using the official reference
-<https://openvpn.net/vpn-server-resources/openvpn-access-server-system-requirements/>
-
 #### VPN References
 
 <https://github.com/linuxserver/docker-openvpn-as>
@@ -307,13 +314,6 @@ Currently It uses nginx to server a basic website
 `sudo -sHu jenkins`
 `ssh-keygen`
 `cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`
-
-
-#### Web Server Instance Details
-
-To start with, we are going with an instance of size t2.micro.
-Ideally though, we should plan and predict using the official reference.
-<https://www.nginx.com/resources/datasheets/nginx-plus-sizing-guide/>
 
 ### Jenkins server
 
@@ -358,12 +358,6 @@ Jenkins is being used to deploy the code to the web server
 1. `https://github.com/<github-user>/<github-repo>/settings/hooks`
 2. Add Webhook
 3. e.g. `http://<jenkins-server-url>:8080/github-webhook/`
-
-#### Jenkins Instance Details
-
-To start with, we are going with an instance of size t2.medium.
-Ideally though, we should plan and predict using the official reference
-<https://jenkins.io/doc/book/hardware-recommendations/>
 
 #### Jenkins References
 
